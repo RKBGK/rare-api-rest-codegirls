@@ -4,7 +4,6 @@ from rarerestapi.models.rareuser import RareUser
 
 
 class Post(models.Model):
-
     user_id = models.OneToOneField(RareUser, on_delete=models.CASCADE)
     category_id = models.OneToOneField(Category, on_delete=models.CASCADE)
     title = models.CharField(max_length=50)
