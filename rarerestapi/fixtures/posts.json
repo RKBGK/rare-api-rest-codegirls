@@ -1,0 +1,14 @@
+[
+    {
+        "model": "rarerestapi.post",
+        "pk": 1,
+        "fields": {
+            "title": "Title 1",
+            "publication_date": "2022-06-29",
+            "image_url": "http://www.cnn.com",
+            "content": "test the contents",
+            "approved": "1",
+            "user": 1
+        }
+    }
+]

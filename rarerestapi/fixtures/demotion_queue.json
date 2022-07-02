@@ -1,0 +1,21 @@
+[
+    {
+        "model": "rarerestapi.demotionqueue",
+        "pk": 1,
+        "fields": {
+            "action": "Approved",
+            "admin_id": 1,
+            "approver_id": 1
+        }
+    },
+    {
+        "model": "rarerestapi.demotionqueue",
+        "pk": 2,
+        "fields": {
+            "action": "Rejected",
+            "admin_id": 2,
+            "approver_id": 2
+        }
+    }
+]
+

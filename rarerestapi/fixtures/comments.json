@@ -1,0 +1,13 @@
+[
+    {
+        "model": "rarerestapi.comment",
+        "pk": 1,
+        "fields": {
+            "post_id": 1,
+            "author_id": 1,
+            "content": "Very interesting post",
+            "created_on": "2022-06-12"
+        }
+    }
+]
+
