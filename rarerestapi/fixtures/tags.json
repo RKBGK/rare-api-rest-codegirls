@@ -1,0 +1,30 @@
+[
+    {
+        "model": "rarerestapi.tag",
+        "pk": 1,
+        "fields": {
+            "label": "tag1"
+        }
+    },
+    {
+        "model": "rarerestapi.tag",
+        "pk": 2,
+        "fields": {
+            "label": "tag2"
+        }
+    },
+    {
+        "model": "rarerestapi.tag",
+        "pk": 3,
+        "fields": {
+            "label": "tag3"
+        }
+    },
+    {
+        "model": "rarerestapi.tag",
+        "pk": 3,
+        "fields": {
+            "label": "tag4"
+        }
+    }
+]

@@ -1,0 +1,26 @@
+[
+    {
+        "model": "rarerestapi.reaction",
+        "pk": 1,
+        "fields": {
+            "label": "Like",
+            "image_url": "http://www.abcnews.com"
+        }
+    },
+    {
+        "model": "rarerestapi.reaction",
+        "pk": 2,
+        "fields": {
+            "label": "Interested",
+            "image_url": "http://www.abcnews.com"
+        }
+    },
+    {
+        "model": "rarerestapi.reaction",
+        "pk": 3,
+        "fields": {
+            "label": "Dislike",
+            "image_url": "http://www.abcnews.com"
+        }
+    }
+]

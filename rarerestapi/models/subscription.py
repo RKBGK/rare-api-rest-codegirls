@@ -1,9 +1,11 @@
 from django.db import models
-
 from rarerestapi.models.rareuser import RareUser
 
+
 class Subscription(models.Model):
-    follower_id = models.ForeignKey(RareUser, on_delete=models.CASCADE)
-    author_id = models.ForeignKey(RareUser, on_delete=models.CASCADE)
+
+    author = models.ForeignKey(RareUser, on_delete=models.CASCADE)
+    follower = models.ForeignKey(RareUser, on_delete=models.CASCADE, related_name="following")
     created_on = models.DateField()
-    ended_on = models.DateField()
+    deleted_on = models.DateField()
+  
