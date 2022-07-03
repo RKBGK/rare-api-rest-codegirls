@@ -21,7 +21,7 @@ class CategoryView(ViewSet):
         
     # @permission_classes([AllowAny])
     def list(self, request):
-        categories = Category.objects.objects.all()            
+        categories = Category.objects.all()            
         serializer = CategorySerializer(categories, many=True)
         return Response(serializer.data)
     
@@ -32,4 +32,4 @@ class CategorySerializer(serializers.ModelSerializer):
     """
     class Meta:
         model = Category
-        fields = ('label')
+        fields = ('label',)
