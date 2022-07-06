@@ -1,0 +1,18 @@
+[
+    {
+        "model": "rarerestapi.post_posttag",
+        "pk": 1,
+        "fields": {
+            "post": 1,
+            "tag": 1
+        }
+    },
+    {
+        "model": "rarerestapi.post_posttag",
+        "pk": 1,
+        "fields": {
+            "post": 1,
+            "tag": 2
+        }
+    }
+]
