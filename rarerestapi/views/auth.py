@@ -1,3 +1,4 @@
+
 from django.contrib.auth import authenticate
 from django.contrib.auth.models import User
 from rest_framework.authtoken.models import Token
@@ -48,16 +49,23 @@ def register_user(request):
         password=request.data['password'],
         first_name=request.data['first_name'],
         last_name=request.data['last_name'],
+        email=request.data['email']
     )
-    #save extra info in the rarerestapi_rareuser table
     
+    #save extra info in the rarerestapi_rareuser table
     rareuser = RareUser.objects.create(
         bio=request.data['bio'],
+        image_url=request.data['image_url'],
+        created_on=request.data['created_on'],
+        active=request.data['active'],
         user=new_user
     )
     
     token = Token.objects.create(user=rareuser.user)
     
-    data = { 'token': token.key}
+    data = { 
+            'token': token.key,
+             'valid': True
+            }
     return Response(data)
     
