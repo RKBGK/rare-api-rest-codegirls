@@ -13,5 +13,5 @@ class Post(models.Model):
     content = models.CharField(max_length=500)
     approved = models.CharField(max_length=50)
     category = models.ForeignKey(Category, on_delete=models.CASCADE)
-    tag = models.ManyToManyField(Tag)
+    tags = models.ManyToManyField(Tag, related_name="associatedposts")
     
