@@ -27,6 +27,8 @@ def login_user(request):
             'valid': True,
             'token': token.key
         }
+        print('*' * 100)
+        print(data)
         return Response(data)
     else:
         #Bad login details were provided. User cannot be logged in.
