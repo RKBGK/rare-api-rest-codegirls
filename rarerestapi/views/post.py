@@ -1,6 +1,5 @@
 """View module for handling requests about game types"""
-from multiprocessing import Event
-from django.http import HttpResponseServerError
+
 from rest_framework.viewsets import ViewSet
 from rest_framework.response import Response
 from rest_framework import serializers, status
@@ -13,15 +12,11 @@ class PostView(ViewSet):
     
     # @permission_classes([AllowAny])
     def retrieve(self, request, pk):
-        print( '*' * 100)
-        print(request.auth.user)
-        print(request.__dict__)
         posts = Post.objects.get(pk=pk)
         serializer = PostSerializer(posts)
         return Response(serializer.data)
 
     def list(self, request):
-
         posts = Post.objects.all()
         serializer = PostSerializer(posts, many=True)
         return Response(serializer.data)
@@ -33,6 +28,13 @@ class PostView(ViewSet):
         serializer = PostSerializer(posts, many=True)
         
         return Response(serializer.data)
+    
+    def create(self, request):
+        post = Post.objects.get(pk=request.data["post"])
+        serializer = CreatePostSerializer(data=request.data)
+        serializer.is_valid(raise_exception=True)
+        serializer.save(post=post)
+        return Response(serializer.data, status=status.HTTP_201_CREATED)
     
     # http://localhost:8000/posts/2/randomuserpost
     
@@ -58,14 +60,34 @@ class PostView(ViewSet):
         post.save()
         return Response(None, status=status.HTTP_204_NO_CONTENT)   
     
-    # @action(methods=['post'], detail=True)
-    # def tag(self, request, pk):
-    #     """Post request for a user to sign up for an event"""
     
-    #     tag = Tag.objects.get(tag=request.tag)
-    #     post = Post.objects.get(pk=pk)
-    #     post.tags.add(tag)
-    #     return Response({'message': 'Tagged added'}, status=status.HTTP_201_CREATED)
+        # serializer = CategorySerializer(data=request.data)
+        # serializer.is_valid(raise_exception=True)
+        # serializer.save()
+    
+    @action(methods=['post'], detail=False)
+    def tagpost(self, request):
+        """Post request for a user to sign up for an event"""
+        # instatiate objects
+        
+        tag_id = request.data["tag"]
+        post_id = request.data["post"]
+        post = Post.objects.get(pk=post_id)
+        tag = Tag.objects.get(pk=tag_id)
+        post.tags.add(tag)
+        return Response({'message': 'Tagged added'}, status=status.HTTP_201_CREATED)
+    
+    @action(methods=['delete'], detail=False)
+    def untagpost(self, request):
+        """Post request for a user to sign up for an event"""
+        # instatiate objects
+        
+        tag_id = request.data["tag"]
+        post_id = request.data["post"]
+        post = Post.objects.get(pk=post_id)
+        tag = Tag.objects.get(pk=tag_id)
+        post.tags.remove(tag)
+        return Response({'message': 'Tagged added'}, status=status.HTTP_201_CREATED)
     
     # @action(methods=['delete'], detail=True)
     # def untag(self, request, pk):
@@ -83,7 +105,7 @@ class  PostSerializer(serializers.ModelSerializer):
     class Meta:
         model = Post
         fields = ('id', 'title', 'publication_date',
-          'image_url', 'content', 'approved','category','user')
+          'image_url', 'content', 'approved','category','user','tags')
         depth = 2
  
 class  CreatePostSerializer(serializers.ModelSerializer):
@@ -93,3 +115,4 @@ class  CreatePostSerializer(serializers.ModelSerializer):
         model = Post
         fields = ('id', 'title', 'publication_date',
           'image_url', 'content', 'approved','category')
+        
