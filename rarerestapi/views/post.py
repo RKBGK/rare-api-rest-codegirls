@@ -78,7 +78,7 @@ class PostView(ViewSet):
         return Response({'message': 'Tagged added'}, status=status.HTTP_201_CREATED)
     
     @action(methods=['delete'], detail=False)
-    def tagpost(self, request):
+    def untagpost(self, request):
         """Post request for a user to sign up for an event"""
         # instatiate objects
         
