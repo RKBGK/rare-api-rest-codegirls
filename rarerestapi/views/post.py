@@ -4,6 +4,7 @@ from rest_framework.viewsets import ViewSet
 from rest_framework.response import Response
 from rest_framework import serializers, status
 from rarerestapi.models import Post, reaction
+from rarerestapi.models.rareuser import RareUser
 
 
 class PostView(ViewSet):
@@ -17,10 +18,12 @@ class PostView(ViewSet):
         return Response(serializer.data)
     
     def create(self, request):
-        post = Post.objects.get(pk=request.data["post"])
+        user = RareUser.objects.get(user=request.auth.user)
+        request.data['user']=user
+        print(request.data)
         serializer = CreatePostSerializer(data=request.data)
         serializer.is_valid(raise_exception=True)
-        serializer.save(post=post)
+        serializer.save(user=user)
         return Response(serializer.data, status=status.HTTP_201_CREATED)
     
     def update(self, request, pk):
@@ -41,3 +44,4 @@ class CreatePostSerializer(serializers.ModelSerializer):
         model = Post
         fields = ('id', 'user', 'category', 'title', 'publication_date', 'image_url',
                   'content', 'approved', 'posttag')
+        
