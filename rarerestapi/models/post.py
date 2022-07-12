@@ -4,13 +4,14 @@ from rarerestapi.models.rareuser import RareUser
 from rarerestapi.models.tag import Tag
 
 
-class Post(model.Model):
-    user = model.ForeignKey(RareUser,on_delete=model.CASCADE )
-    category = model.ManyToManyField(Category)
-    title = model.CharField(max_length=50)
-    publication_date = model.DateField()
-    image_url = model.URLField(max_length=500, default=None)
-    content = model.CharField(max_length=500)
-    approved = model.CharField(max_length=50)
-    posttag = model.ManyToManyField(Tag)
+class Post(models.Model):
+
+    user = models.ForeignKey(RareUser, on_delete=models.CASCADE)    
+    title = models.CharField(max_length=50)
+    publication_date = models.DateField()
+    image_url = models.URLField(max_length=500, default=None)
+    content = models.CharField(max_length=500)
+    approved = models.CharField(max_length=50)
+    category = models.ForeignKey(Category, on_delete=models.CASCADE)
+    tags = models.ManyToManyField(Tag, related_name="associatedposts")
     

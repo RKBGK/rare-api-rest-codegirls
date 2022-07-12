@@ -30,7 +30,7 @@ class Migration(migrations.Migration):
                 ('image_url', models.URLField(default=None, max_length=500)),
                 ('content', models.CharField(max_length=500)),
                 ('approved', models.CharField(max_length=50)),
-                ('category', models.ManyToManyField(to='rarerestapi.category')),
+                ('category', models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, to='rarerestapi.category')),
             ],
         ),
         migrations.CreateModel(
@@ -70,6 +70,14 @@ class Migration(migrations.Migration):
             ],
         ),
         migrations.CreateModel(
+            name='PostTag',
+            fields=[
+                ('id', models.BigAutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
+                ('post', models.ManyToManyField(to='rarerestapi.post')),
+                ('tag', models.ManyToManyField(to='rarerestapi.tag')),
+            ],
+        ),
+        migrations.CreateModel(
             name='PostReaction',
             fields=[
                 ('id', models.BigAutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
@@ -80,8 +88,8 @@ class Migration(migrations.Migration):
         ),
         migrations.AddField(
             model_name='post',
-            name='posttag',
-            field=models.ManyToManyField(to='rarerestapi.tag'),
+            name='tags',
+            field=models.ManyToManyField(related_name='associatedposts', to='rarerestapi.tag'),
         ),
         migrations.AddField(
             model_name='post',
