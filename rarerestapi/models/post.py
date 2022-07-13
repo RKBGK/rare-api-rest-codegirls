@@ -1,4 +1,4 @@
-from django.db import models as model
+from django.db import models 
 from rarerestapi.models.category import Category
 from rarerestapi.models.rareuser import RareUser
 from rarerestapi.models.tag import Tag

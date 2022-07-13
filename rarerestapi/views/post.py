@@ -18,12 +18,10 @@ class PostView(ViewSet):
         return Response(serializer.data)
     
     def create(self, request):
-        user = RareUser.objects.get(user=request.auth.user)
-        request.data['user']=user
-        print(request.data)
+        rareuser = RareUser.objects.get(user=request.auth.user)
         serializer = CreatePostSerializer(data=request.data)
         serializer.is_valid(raise_exception=True)
-        serializer.save(user=user)
+        serializer.save(user=rareuser)
         return Response(serializer.data, status=status.HTTP_201_CREATED)
     
     def update(self, request, pk):
@@ -38,10 +36,10 @@ class PostSerializer(serializers.ModelSerializer):
     class Meta:
         model = Post
         fields= ('id','user','category','title','publication_date', 'image_url',
-                 'content', 'approved', 'posttag')
+                 'content', 'approved', 'tags')
 class CreatePostSerializer(serializers.ModelSerializer):
     class Meta:
         model = Post
         fields = ('id', 'user', 'category', 'title', 'publication_date', 'image_url',
-                  'content', 'approved', 'posttag')
+                  'content', 'approved', 'tags')
         
