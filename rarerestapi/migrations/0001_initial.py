@@ -70,14 +70,6 @@ class Migration(migrations.Migration):
             ],
         ),
         migrations.CreateModel(
-            name='PostTag',
-            fields=[
-                ('id', models.BigAutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
-                ('post', models.ManyToManyField(to='rarerestapi.post')),
-                ('tag', models.ManyToManyField(to='rarerestapi.tag')),
-            ],
-        ),
-        migrations.CreateModel(
             name='PostReaction',
             fields=[
                 ('id', models.BigAutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
@@ -89,7 +81,7 @@ class Migration(migrations.Migration):
         migrations.AddField(
             model_name='post',
             name='tags',
-            field=models.ManyToManyField(related_name='associatedposts', to='rarerestapi.tag'),
+            field=models.ManyToManyField(related_name='taggedposts', to='rarerestapi.tag'),
         ),
         migrations.AddField(
             model_name='post',
