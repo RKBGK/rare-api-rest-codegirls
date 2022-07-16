@@ -5,10 +5,60 @@
         "fields": {
             "title": "Title 1",
             "publication_date": "2022-06-29",
-            "image_url": "http://www.cnn.com",
+            "image_url": "http://www.yahoo.com",
             "content": "test the contents",
-            "approved": "1",
+            "approved": 1,
+            "category": 1,
             "user": 1
+            
+        }
+    },
+    {
+        "model": "rarerestapi.post",
+        "pk": 2,
+        "fields": {
+            "title": "Title 1",
+            "publication_date": "2022-06-29",
+            "image_url": "http://www.abc.com",
+            "content": "test the contents",
+            "approved": 0,
+            "category": 2,
+            "user": 1,
+            "tags": [
+                3,2
+            ]
+        }
+    },
+    {
+        "model": "rarerestapi.post",
+        "pk": 3,
+        "fields": {
+            "title": "Title 1",
+            "publication_date": "2022-06-29",
+            "image_url": "http://www.yahootest.com",
+            "content": "test the contents",
+            "approved": 1,
+            "category": 1,
+            "user": 2,
+            "tags": [
+                1,3
+            ]
+        }
+    },
+    {
+        "model": "rarerestapi.post",
+        "pk": 4,
+        "fields": {
+            "title": "Title 1",
+            "publication_date": "2022-06-29",
+            "image_url": "http://www.test.com",
+            "content": "test the contents",
+            "approved": 0,
+            "category": 2,
+            "user": 2,
+            "tags": [
+                1,2
+            ]
         }
     }
 ]

@@ -9,7 +9,7 @@
     },
     {
         "model": "rarerestapi.post_posttag",
-        "pk": 1,
+        "pk": 2,
         "fields": {
             "post": 1,
             "tag": 2

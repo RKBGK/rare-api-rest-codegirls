@@ -44,12 +44,11 @@ class CategoryView(ViewSet):
         serializer = CategorySerializer(data=request.data)
         serializer.is_valid(raise_exception=True)
         serializer.save()
-        return Response(serializer.data, status=status.HTTP_201_CREATED)      
-                
+        return Response(serializer.data, status=status.HTTP_201_CREATED)  
 
 class CategorySerializer(serializers.ModelSerializer):
     """JSON serializer for game types
     """
     class Meta:
         model = Category
-        fields = ('label',)
+        fields = ('id','label')
