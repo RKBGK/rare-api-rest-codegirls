@@ -10,7 +10,7 @@ from rarerestapi.views.users import RareUserView
 
 router = routers.DefaultRouter(trailing_slash=False)
 
-router.register(r'category', CategoryView, 'category')
+router.register(r'categories', CategoryView, 'category')
 router.register(r'posts', PostView, 'post')
 router.register(r'users', RareUserView, 'user')
 
