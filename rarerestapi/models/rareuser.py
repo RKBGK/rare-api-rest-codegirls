@@ -11,11 +11,11 @@ class RareUser(models.Model):
     active = models.CharField(max_length=50)
     # subscriptions = models.ManyToManyField(User, related_name="subscribers" )
     
-    @property
-    def subscribed(self):
-        return self.__subscribed
+    # @property
+    # def subscribed(self):
+    #     return self.__subscribed
 
-    @subscribed.setter
-    def subscribed(self, value):
-        self.__subscribed = value
+    # @subscribed.setter
+    # def subscribed(self, value):
+    #     self.__subscribed = value
     

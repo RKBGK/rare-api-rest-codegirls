@@ -32,15 +32,16 @@ class RareUserView(ViewSet):
 class UserSerializer(serializers.ModelSerializer):
     """JSON serializer for users
     """
-    first_name = serializers.CharField(source = 'user.first_name')
-    last_name = serializers.CharField(source = 'user.last_name')
+    # first_name = serializers.CharField(source = 'user.first_name')
+    # last_name = serializers.CharField(source = 'user.last_name')
+    print(serializers.CharField(source = 'user.first_name'))
     # https://github.com/encode/django-rest-framework/issues/5937
+    first_name = 'cookie'
     print('*' * 100)
     print(first_name)
     class Meta:
         model = RareUser
-
-        fields = ('user', 'bio', 'image_url', 'created_on', 'active','first_name','last_name')
+        fields = ('user.first_name', 'bio', 'image_url', 'created_on', 'active','first_name','last_name')
         #depth = 1
         
 class UserPostSerializer(serializers.ModelSerializer):
