@@ -13,5 +13,12 @@ class Post(models.Model):
     content = models.CharField(max_length=500)
     approved = models.CharField(max_length=50)
     category = models.ForeignKey(Category, on_delete=models.CASCADE)
-    tags = models.ManyToManyField(Tag, related_name="associatedposts")
+    tags = models.ManyToManyField(Tag, related_name="taggedposts")
     
+    @property
+    def tagged(self):
+        return self.__tagged
+
+    @tagged.setter
+    def tagged(self, value):
+        self.__tagged = value
