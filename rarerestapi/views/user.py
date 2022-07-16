@@ -20,24 +20,28 @@ class RareUserView(ViewSet):
     
     
     @action(methods=['get'], detail=True)
-    def userPost(self, request,pk):
+    def userpost(self, request,pk):
         print("*****************************")
         print(pk)
         posts = Post.objects.all().filter(user_id=pk)
         serializer = UserPostSerializer(posts, many=True)
         
         return Response(serializer.data)
+
     
 class UserSerializer(serializers.ModelSerializer):
     """JSON serializer for users
     """
     first_name = serializers.CharField(source = 'user.first_name')
     last_name = serializers.CharField(source = 'user.last_name')
+    # https://github.com/encode/django-rest-framework/issues/5937
+    print('*' * 100)
+    print(first_name)
     class Meta:
         model = RareUser
 
         fields = ('user', 'bio', 'image_url', 'created_on', 'active','first_name','last_name')
-        # depth = 1
+        #depth = 1
         
 class UserPostSerializer(serializers.ModelSerializer):
     """JSON serializer for users
@@ -46,7 +50,3 @@ class UserPostSerializer(serializers.ModelSerializer):
     class Meta:
         model = Post
         fields = ('title', 'publication_date','image_url', 'content', 'approved','category','user')
-
-      
-
-
