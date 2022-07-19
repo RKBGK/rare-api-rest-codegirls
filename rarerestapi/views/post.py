@@ -5,7 +5,8 @@ from rest_framework.response import Response
 from rest_framework import serializers, status
 from rest_framework.decorators import action
 
-from rarerestapi.models import Post, Reaction, RareUser, Tag, Category, Comment, RareUser, rareuser
+from rarerestapi.models import Post, Reaction, RareUser, Tag, Category, Comment, RareUser, TagPost
+from rarerestapi.models.subscription import Subscription
 
 class PostView(ViewSet):
     """Level up game types view"""
@@ -33,9 +34,25 @@ class PostView(ViewSet):
         rareuser = RareUser.objects.get(user=request.auth.user)
         serializer = CreatePostSerializer(data=request.data)
         print("*" * 100)
-        print(CreatePostSerializer(data=request.data))
+        print(CreatePostSerializer(data=request.data))        
         serializer.is_valid(raise_exception=True)
         serializer.save(user=rareuser)
+        postid = serializer.data['id']
+        post= Post.objects.get(pk=postid)
+        tags =  request.data['tags']
+        # *tags is spread in python
+        post.tags.add(*tags)
+        
+        # for tag in request.data['tags']:
+        #     print("*" * 100)
+        #     print(tag) 
+        #     print(serializer.data['id']) 
+        #     vtag = Tag.objects.get(pk=tag)
+        #     post= Post.objects.get(pk=postid)
+        #     post.tags.add(tag)
+            # newtag = CreateTagSerializer(tag_id=tag, post=postid)
+            # newtag.save()
+            
         return Response(serializer.data, status=status.HTTP_201_CREATED)
     
     # http://localhost:8000/posts/2/randomuserpost
@@ -47,7 +64,23 @@ class PostView(ViewSet):
         serializer = PostSerializer(posts, many=True)
         
         return Response(serializer.data)
-    
+
+    @action(methods=['get'], detail=False)
+    def subscribed(self, request):
+        """Get request to display posts of authors logged-in user is subscribed to """
+        posts = Post.objects.all()
+        subs = Subscription.objects.all()
+        user = RareUser.objects.get(user=request.auth.user)
+        print('*************************')
+        print(request.auth.user)
+        user_subs = subs.filter(follower=user)
+        if len(user_subs) > 0:
+            for user_sub in user_subs:
+                posts = posts.filter(user=user_sub.author)
+        else:
+            posts=[]
+        serializer = PostSerializer(posts, many=True)
+        return Response(serializer.data)   
 
     def destroy(self, request, pk):
         event = Post.objects.get(pk=pk)
@@ -60,7 +93,13 @@ class PostView(ViewSet):
         serializer = CreatePostSerializer(post, data=request.data)
         serializer.is_valid(raise_exception=True)
         serializer.save()
-        post.save()
+        post.save()      
+        
+        # django relationship set
+        # tags =  post.tags.objects.all()
+        # post.tags.delete(*tags)
+        newtags =  request.data['tags']
+        post.tags.set(newtags)
         return Response(None, status=status.HTTP_204_NO_CONTENT)   
 
     
@@ -104,5 +143,13 @@ class  CreatePostSerializer(serializers.ModelSerializer):
         model = Post
         fields = ('id', 'title', 'publication_date',
           'image_url', 'content', 'approved','category')
+        
+# class  CreateTagSerializer(serializers.ModelSerializer):
+#     """JSON serializer for game types
+#     """
+    
+#     class Meta:
+#         model = TagPost
+#         fields = ('id', 'post', 'tag')
         
         

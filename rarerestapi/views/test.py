@@ -5,8 +5,6 @@ from django.core.exceptions import ValidationError
 from rarerestapi.models import RareUser, Post
 from rest_framework.decorators import action
 
-from rarerestapi.models.subscription import Subscription
-
 class RareUserView(ViewSet):
     """User view"""
     # @permission_classes([AllowAny])
@@ -20,17 +18,14 @@ class RareUserView(ViewSet):
         serializer = UserSerializer(users, many=True)
         return Response(serializer.data)
     
-    
+    # http://localhost:8000/users/2/userPost
     @action(methods=['get'], detail=True)
     def userPost(self, request,pk):
+        print("*****************************")
+        print(pk)
         posts = Post.objects.all().filter(user_id=pk)
-        serializer = UserPostSerializer(posts, many=True)        
-        return Response(serializer.data)
-    
-    @action(methods=['get'], detail=True)
-    def userSubscriptions(self, request,pk):
-        subscriptions = Subscription.objects.all().filter(follower_id=pk)
-        serializer =  SubscriptionSerializer(subscriptions, many=True)        
+        serializer = UserPostSerializer(posts, many=True)
+        
         return Response(serializer.data)
     
 class UserSerializer(serializers.ModelSerializer):
@@ -42,7 +37,7 @@ class UserSerializer(serializers.ModelSerializer):
         model = RareUser
 
         fields = ('user', 'bio', 'image_url', 'created_on', 'active','first_name','last_name')
-        # depth = 1
+        depth = 1
         
 class UserPostSerializer(serializers.ModelSerializer):
     """JSON serializer for users
@@ -51,10 +46,7 @@ class UserPostSerializer(serializers.ModelSerializer):
     class Meta:
         model = Post
         fields = ('title', 'publication_date','image_url', 'content', 'approved','category','user')
-        
-class SubscriptionSerializer(serializers.ModelSerializer):
-    """JSON serializer for game types
-    """
-    class Meta:
-        model = Subscription
-        fields = ('id', 'created_on', 'deleted_on', 'author', 'follower')
+
+      
+
+
