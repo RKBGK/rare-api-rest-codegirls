@@ -9,3 +9,4 @@ from .rareuser import RareUser
 from .reaction import Reaction
 from .subscription import Subscription
 from .tag import Tag
+from .tag_post import TagPost

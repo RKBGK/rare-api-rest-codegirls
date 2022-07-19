@@ -1,4 +1,4 @@
-from django.db import models 
+from django.db import models
 from rarerestapi.models.category import Category
 from rarerestapi.models.rareuser import RareUser
 from rarerestapi.models.tag import Tag
@@ -13,7 +13,7 @@ class Post(models.Model):
     content = models.CharField(max_length=500)
     approved = models.CharField(max_length=50)
     category = models.ForeignKey(Category, on_delete=models.CASCADE)
-    tags = models.ManyToManyField(Tag, related_name="taggedposts")
+    tags = models.ManyToManyField(Tag, related_name="taggedposts") 
     
     @property
     def tagged(self):
